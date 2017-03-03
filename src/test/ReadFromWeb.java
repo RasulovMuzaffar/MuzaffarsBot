@@ -25,9 +25,12 @@ import org.jsoup.nodes.Document;
  */
 public class ReadFromWeb {
 
-    public void find() {
+    static Map allList;
+
+    public String find(String city) {
 
         Document doc;
+        Document doc1;
         String title;
 
         List list;
@@ -35,11 +38,14 @@ public class ReadFromWeb {
         String ssilka;
         String znach;
 
-        try {
-            doc = Jsoup.connect("http://eticket.uzrailway.uz/timetable/timetable/2900700/today").get();
+        String c = null;
 
-//            System.out.println(doc.body().getElementsByClass("list-unstyled"));
+        try {
+            doc = Jsoup.connect("http://eticket.uzrailway.uz/timetable/timetable/2900000/today").get();
+
+            System.out.println(doc.body().getElementsByClass("list-unstyled"));
 //            System.out.println(doc.body().getElementsByClass("list-unstyled").text());
+//            c = doc.body().getElementsByClass("list-unstyled").text();
 //            System.out.println("----------------------");
 //            String pattern = "/timetable/timetable/2900000/today";
             ssilka = doc.body().getElementsByClass("list-unstyled").toString();
@@ -50,12 +56,17 @@ public class ReadFromWeb {
 //            System.out.println("----------------------");
 //            System.out.println(doc.body().getElementById("table_super").getElementsByTag("thead"));
 //            System.out.println(doc.body().getElementById("table_super").getElementsByTag("tbody"));
-            title = doc.title();
-//            System.out.println("--------- " + title);
+//            title = doc.title();
+            
+
+            doc1 = Jsoup.connect(findByCity(city)).get();
+            c = doc1.body().getElementById("table_super").getElementsByTag("thead").html();
+
         } catch (IOException e) {
             System.out.println("EXCEPTION ---->>> " + e);
         }
-//return findBySsZn(ssilka, znach);
+
+        return findByCity(city);
     }
 
     private static void findBySsZn(String ssilka, String znach) {
@@ -70,7 +81,7 @@ public class ReadFromWeb {
             listS.add("http://eticket.uzrailway.uz" + m.group());
         }
 
-        Map allList = new HashMap<String, String>();
+        allList = new HashMap<String, String>();
 
         for (int i = 0; i < listS.size(); i++) {
             allList.put(listS.get(i), items.get(i));
@@ -81,7 +92,31 @@ public class ReadFromWeb {
             System.out.println("Ссылка =  " + entry.getKey() + ", Город = " + entry.getValue());
         }
     }
-    
+
+    private String findByCity(String s) {
+        System.out.println(s + "-------------------" + allList.entrySet().iterator());
+
+        /*
+         Map<String, String> map = new HashMap<>();
+        for (Map.Entry<String, String> stringStringEntry : map.entrySet()) {
+            
+        }
+        
+        ---------------------
+        
+        Map<String, String> newMap = map.entrySet().stream().filter(e -> e.getValue().endsWith("a")).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+         */
+        for (Iterator it = allList.entrySet().iterator(); it.hasNext();) {
+
+            Map.Entry<String, String> entry = (Map.Entry<String, String>) it.next();
+            System.out.println("SELECTED CITY--->>> " + entry.getValue());
+            if (entry.getValue().equals(s)) {
+                System.out.println("SELECTED CITY--->>> " + entry.getValue());
+                s = entry.getKey();
+            }
+        }
+        return s;
+    }
 
     /**
      * @param args the command line arguments

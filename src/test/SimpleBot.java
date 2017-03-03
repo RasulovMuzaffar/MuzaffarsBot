@@ -5,8 +5,6 @@
  */
 package test;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.telegram.telegrambots.ApiContextInitializer;
 
 import org.telegram.telegrambots.exceptions.TelegramApiException;
@@ -15,8 +13,6 @@ import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 
 /**
  *
@@ -48,11 +44,25 @@ public class SimpleBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
         if (message != null && message.hasText()) {
+            System.out.println(">>>>>>> "+message.getText());
             if (message.getText().equals("/help")) {
                 sendMsg(message, "Привет, я робот");
-            } else if (message.getText().equals("/list")) {
+            } else if (message.getText().equals("/tashkent")) {
                 ReadFromWeb rfw = new ReadFromWeb();
-                rfw.find();
+//                rfw.find();
+                sendMsg(message, rfw.find("Ташкент"));
+            } else if (message.getText().equals("/samarkand")) {
+                ReadFromWeb rfw = new ReadFromWeb();
+//                rfw.find();
+                sendMsg(message, rfw.find("Самарканд"));
+            } else if (message.getText().equals("/bukhara")) {
+                ReadFromWeb rfw = new ReadFromWeb();
+//                rfw.find();
+                sendMsg(message, rfw.find("Бухара"));
+            } else if (message.getText().equals("/karshi")) {
+                ReadFromWeb rfw = new ReadFromWeb();
+//                rfw.find();
+                sendMsg(message, rfw.find("Карши"));
             } else {
                 sendMsg(message, "Я не знаю что ответить на это");
             }

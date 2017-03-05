@@ -40,29 +40,42 @@ public class SimpleBot extends TelegramLongPollingBot {
         return "379361799:AAE7-v-FCwSeFBJcu1_zH-hNpGTKEd6c6xw";
     }
 
+    String stFrom;
+    String stTo;
+
     @Override
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
         if (message != null && message.hasText()) {
-            System.out.println(">>>>>>> "+message.getText());
+            System.out.println(">>>>>>> " + message.getText());
+
+            String[] s = message.getText().split(" ");
+            stFrom = s[1];
+            stTo = s[2];
+
             if (message.getText().equals("/help")) {
-                sendMsg(message, "Привет, я робот");
-            } else if (message.getText().equals("/tashkent")) {
-                ReadFromWeb rfw = new ReadFromWeb();
-//                rfw.find();
-                sendMsg(message, rfw.find("Ташкент"));
-            } else if (message.getText().equals("/samarkand")) {
-                ReadFromWeb rfw = new ReadFromWeb();
-//                rfw.find();
-                sendMsg(message, rfw.find("Самарканд"));
-            } else if (message.getText().equals("/bukhara")) {
-                ReadFromWeb rfw = new ReadFromWeb();
-//                rfw.find();
-                sendMsg(message, rfw.find("Бухара"));
-            } else if (message.getText().equals("/karshi")) {
-                ReadFromWeb rfw = new ReadFromWeb();
-//                rfw.find();
-                sendMsg(message, rfw.find("Карши"));
+                sendMsg(message, "Пример команды /reys станция отправления станция назначения");
+//            } else if (message.getText().equals("/tashkent")) {
+//                ReadFromWeb rfw = new ReadFromWeb();
+////                rfw.find();
+//                sendMsg(message, rfw.find("Ташкент"));
+//            } else if (message.getText().equals("/samarkand")) {
+//                ReadFromWeb rfw = new ReadFromWeb();
+////                rfw.find();
+//                sendMsg(message, rfw.find("Самарканд"));
+//            } else if (message.getText().equals("/bukhara")) {
+//                ReadFromWeb rfw = new ReadFromWeb();
+////                rfw.find();
+//                sendMsg(message, rfw.find("Бухара"));
+//            } else if (message.getText().equals("/karshi")) {
+//                ReadFromWeb rfw = new ReadFromWeb();
+////                rfw.find();
+//                sendMsg(message, rfw.find("Карши"));
+            } else if (message.getText().equals("/reys")) {
+                sendMsg(message, "пример команды /reys Ташкент Москва");
+            } else if (message.getText().equals("/reys " + stFrom + " " + stTo)) {
+                RFW rfw = new RFW();
+                sendMsg(message, rfw.find(stFrom, stTo));
             } else {
                 sendMsg(message, "Я не знаю что ответить на это");
             }

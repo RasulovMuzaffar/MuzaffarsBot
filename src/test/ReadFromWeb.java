@@ -57,11 +57,10 @@ public class ReadFromWeb {
 //            System.out.println(doc.body().getElementById("table_super").getElementsByTag("thead"));
 //            System.out.println(doc.body().getElementById("table_super").getElementsByTag("tbody"));
 //            title = doc.title();
-            
-
+            System.out.println("findByCity(city) " + findByCity(city));
             doc1 = Jsoup.connect(findByCity(city)).get();
             c = doc1.body().getElementById("table_super").getElementsByTag("thead").html();
-
+            System.out.println("c---> " + doc1.body().getElementById("table_super").getElementsByTag("thead").html());
         } catch (IOException e) {
             System.out.println("EXCEPTION ---->>> " + e);
         }

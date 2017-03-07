@@ -60,14 +60,15 @@ public class RFW {
             Model model = new Model();
             Element table = doc1.select("table.table").get(0);
             Elements rows = table.select("tr");
-            System.out.println("rows.size() ---->>> " + rows.size());
-            System.out.println("cols.size() ---->>> " + table.select("td").size());
+
+//            System.out.println("rows.size() ---->>> " + rows.size());
+//            System.out.println("cols.size() ---->>> " + table.select("td").size());
             int k = 0;
             for (int i = 0; i < rows.size(); i++) {
                 Element row = rows.get(i);
-                System.out.println("rows : " + row.text());
+//                System.out.println("rows : " + row.text());
                 Elements cols = table.select("td");
-                if (k < 132) {
+                if (k < table.select("td").size()) {
                     for (int j = k; j < k + 4; j++) {
                         int t = k;
                         if (j == t) {
@@ -84,8 +85,8 @@ public class RFW {
                         }
 //                        System.out.println("ttttt " + t);                        
 //                    System.out.println("===> " + cols.get(j).text());
+                        lm.add(model);
                     }
-                    lm.add(model);
                     System.out.println("model " + model.toString());
                 }
                 k += 4;

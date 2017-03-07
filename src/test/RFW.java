@@ -55,10 +55,50 @@ public class RFW {
 //            System.out.println(c);
 //            System.out.println(
 //                    doc1.body().getElementById("table_super").getElementsByTag("tbody").get(0).getElementsByTag("td").text());
-            Elements e = doc1.select("table.table").select("td");
-            for (Element element : e) {
-                System.out.println("qqqqqqqqqqqqqqqqq   " + element.getElementsByTag("td").text());
+
+            List<Model> lm = new ArrayList<>();
+            Model model = new Model();
+            Element table = doc1.select("table.table").get(0);
+            Elements rows = table.select("tr");
+            System.out.println("rows.size() ---->>> " + rows.size());
+            System.out.println("cols.size() ---->>> " + table.select("td").size());
+            int k = 0;
+            for (int i = 0; i < rows.size(); i++) {
+                Element row = rows.get(i);
+                System.out.println("rows : " + row.text());
+                Elements cols = table.select("td");
+                if (k < 132) {
+                    for (int j = k; j < k + 4; j++) {
+                        int t = k;
+                        if (j == t) {
+                            model.setnReys(cols.get(j).text());
+                        }
+                        if (j == (t + 1)) {
+                            model.setStFromTo(cols.get(j).text());
+                        }
+                        if (j == (t + 2)) {
+                            model.setMestV(cols.get(j).text());
+                        }
+                        if (j == (t + 3)) {
+                            model.setDniK(cols.get(j).text());
+                        }
+//                        System.out.println("ttttt " + t);                        
+//                    System.out.println("===> " + cols.get(j).text());
+                    }
+                    lm.add(model);
+                    System.out.println("model " + model.toString());
+                }
+                k += 4;
             }
+
+            lm.stream().forEach((l) -> {
+                System.out.println("" + l.toString());
+            });
+
+//            Elements e = doc1.select("table.table").select("td");
+//            for (Element element : e) {
+//                System.out.println("qqqqqqqqqqqqqqqqq   " + element.getElementsByTag("td").text());
+//            }
             Elements link = doc1.body().getElementsByClass("list-unstyled").select("a[href]");
             Map<String, String> m = new HashMap<>();
             for (Element l : link) {
@@ -67,9 +107,8 @@ public class RFW {
                 m.put(l.text(), l.attr("href"));
             }
             for (Map.Entry<String, String> entry : m.entrySet()) {
-                System.out.println("entry.getKey() => " + entry.getKey());
-                System.out.println("entry.getValue() => http://eticket.uzrailway.uz" + entry.getValue());
-
+//                System.out.println("entry.getKey() => " + entry.getKey());
+//                System.out.println("entry.getValue() => http://eticket.uzrailway.uz" + entry.getValue());
             }
 
         } catch (IOException e) {

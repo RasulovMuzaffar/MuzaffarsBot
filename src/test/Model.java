@@ -12,16 +12,20 @@ package test;
 public class Model {
 
     private String nReys;
-    private String stFromTo;
+    private String stFrom;
+    private String stTo;
+    private String poezd;
     private String mestV;
     private String dniK;
 
     public Model() {
     }
 
-    public Model(String nReys, String stFromTo, String mestV, String dniK) {
+    public Model(String nReys, String stFrom, String stTo, String poezd, String mestV, String dniK) {
         this.nReys = nReys;
-        this.stFromTo = stFromTo;
+        this.stFrom = stFrom;
+        this.stTo = stTo;
+        this.poezd = poezd;
         this.mestV = mestV;
         this.dniK = dniK;
     }
@@ -34,12 +38,28 @@ public class Model {
         this.nReys = nReys;
     }
 
-    public String getStFromTo() {
-        return stFromTo;
+    public String getStFrom() {
+        return stFrom;
     }
 
-    public void setStFromTo(String stFromTo) {
-        this.stFromTo = stFromTo;
+    public void setStFrom(String stFrom) {
+        this.stFrom = stFrom;
+    }
+
+    public String getStTo() {
+        return stTo;
+    }
+
+    public void setStTo(String stTo) {
+        this.stTo = stTo;
+    }
+
+    public String getPoezd() {
+        return poezd;
+    }
+
+    public void setPoezd(String poezd) {
+        this.poezd = poezd;
     }
 
     public String getMestV() {
@@ -60,7 +80,7 @@ public class Model {
 
     @Override
     public String toString() {
-        return "Model{" + "nReys=" + nReys + ", stFromTo=" + stFromTo + ", mestV=" + mestV + ", dniK=" + dniK + '}';
+        return "Model{" + "nReys=" + nReys + ", stFrom=" + stFrom + ", stTo=" + stTo + ", poezd=" + poezd + ", mestV=" + mestV + ", dniK=" + dniK + '}';
     }
 
 }

@@ -60,22 +60,33 @@ public class RFW {
             Model model = new Model();
             Element table = doc1.select("table.table").get(0);
             Elements rows = table.select("tr");
-
-//            System.out.println("rows.size() ---->>> " + rows.size());
-//            System.out.println("cols.size() ---->>> " + table.select("td").size());
+            int col = rows.select("td").size();
+            System.out.println("col : " + col);
+            System.out.println("rows.size() ---->>> " + rows.size());
+            System.out.println("cols.size() ---->>> " + table.select("td").size());
+            int STOLB = col / (rows.size() - 1);
+            System.out.println("STOLB " + STOLB);
             int k = 0;
             for (int i = 0; i < rows.size(); i++) {
                 Element row = rows.get(i);
-//                System.out.println("rows : " + row.text());
+//                System.out.println("rows : " + rows.get(i).getAllElements().size());
                 Elements cols = table.select("td");
+//                Element col = cols.get(i);
+//                System.out.println("col : " + col.getAllElements().size());
+//                System.out.println("cols : " + cols.size());
                 if (k < table.select("td").size()) {
-                    for (int j = k; j < k + 4; j++) {
+                    for (int j = k; j < k + STOLB; j++) {
                         int t = k;
                         if (j == t) {
                             model.setnReys(cols.get(j).text());
                         }
                         if (j == (t + 1)) {
-                            model.setStFromTo(cols.get(j).text());
+                            String[] aa = cols.get(j).text().split("Поезд, ");
+                            String[] bb = aa[0].split("- ");
+
+                            model.setStFrom(bb[0]);
+                            model.setStTo(bb[1]);
+                            model.setPoezd(aa[1]);
                         }
                         if (j == (t + 2)) {
                             model.setMestV(cols.get(j).text());
@@ -83,18 +94,17 @@ public class RFW {
                         if (j == (t + 3)) {
                             model.setDniK(cols.get(j).text());
                         }
-//                        System.out.println("ttttt " + t);                        
-//                    System.out.println("===> " + cols.get(j).text());
-                        lm.add(model);
                     }
+
                     System.out.println("model " + model.toString());
                 }
-                k += 4;
+                lm.add(model);
+                k += STOLB;
             }
-
-            lm.stream().forEach((l) -> {
-                System.out.println("" + l.toString());
-            });
+//            System.out.println("--------------------------------------------------");
+//            lm.stream().forEach((l) -> {
+//                System.out.println("" + l.toString());
+//            });
 
 //            Elements e = doc1.select("table.table").select("td");
 //            for (Element element : e) {

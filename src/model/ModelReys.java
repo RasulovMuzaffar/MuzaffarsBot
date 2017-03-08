@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package test;
+package model;
 
 /**
  *
  * @author Muzaffar
  */
-public class Model {
+public class ModelReys {
 
     private String nReys;
     private String stFrom;
@@ -18,10 +18,10 @@ public class Model {
     private String mestV;
     private String dniK;
 
-    public Model() {
+    public ModelReys() {
     }
 
-    public Model(String nReys, String stFrom, String stTo, String poezd, String mestV, String dniK) {
+    public ModelReys(String nReys, String stFrom, String stTo, String poezd, String mestV, String dniK) {
         this.nReys = nReys;
         this.stFrom = stFrom;
         this.stTo = stTo;
@@ -80,7 +80,7 @@ public class Model {
 
     @Override
     public String toString() {
-        return "Model{" + "nReys=" + nReys + ", stFrom=" + stFrom + ", stTo=" + stTo + ", poezd=" + poezd + ", mestV=" + mestV + ", dniK=" + dniK + '}';
+        return "ModelReys{" + "nReys=" + nReys + ", stFrom=" + stFrom + ", stTo=" + stTo + ", poezd=" + poezd + ", mestV=" + mestV + ", dniK=" + dniK + '}';
     }
 
 }

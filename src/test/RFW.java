@@ -5,6 +5,7 @@
  */
 package test;
 
+import model.ModelReys;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,8 +57,8 @@ public class RFW {
 //            System.out.println(
 //                    doc1.body().getElementById("table_super").getElementsByTag("tbody").get(0).getElementsByTag("td").text());
 
-            List<Model> lm = new ArrayList<>();
-            Model model = new Model();
+            List<ModelReys> lm = new ArrayList<>();
+            ModelReys model = new ModelReys();
             Element table = doc1.select("table.table").get(0);
             Elements rows = table.select("tr");
             int col = rows.select("td").size();

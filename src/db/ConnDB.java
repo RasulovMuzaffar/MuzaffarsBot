@@ -21,7 +21,7 @@ public class ConnDB {
         Class.forName("com.mysql.jdbc.Driver");
 
         Connection conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/bot", "root", "123456");
+                "jdbc:mysql://localhost:3306/bot", "test", "test");
         return conn;
     }
     public void closeConn(Connection conn){

@@ -11,6 +11,7 @@ package model;
  */
 public class ModelReys {
 
+    private int id;
     private String nReys;
     private String stFrom;
     private String stTo;
@@ -21,13 +22,22 @@ public class ModelReys {
     public ModelReys() {
     }
 
-    public ModelReys(String nReys, String stFrom, String stTo, String poezd, String mestV, String dniK) {
+    public ModelReys(int id, String nReys, String stFrom, String stTo, String poezd, String mestV, String dniK) {
+        this.id = id;
         this.nReys = nReys;
         this.stFrom = stFrom;
         this.stTo = stTo;
         this.poezd = poezd;
         this.mestV = mestV;
         this.dniK = dniK;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getnReys() {

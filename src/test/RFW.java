@@ -5,6 +5,7 @@
  */
 package test;
 
+import dao.ModelDAO;
 import model.ModelReys;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import model.ModelVokzal;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -29,6 +31,9 @@ public class RFW {
 
     static Map allList;
 
+    static String ssilka;
+    static String znach;
+
     public String find(String stFrom, String stTo) {
 
         Document doc;
@@ -36,9 +41,6 @@ public class RFW {
         String title;
 
         List list;
-
-        String ssilka;
-        String znach;
 
         String c = null;
 
@@ -62,19 +64,16 @@ public class RFW {
             Element table = doc1.select("table.table").get(0);
             Elements rows = table.select("tr");
             int col = rows.select("td").size();
-            System.out.println("col : " + col);
-            System.out.println("rows.size() ---->>> " + rows.size());
-            System.out.println("cols.size() ---->>> " + table.select("td").size());
+//            System.out.println("col : " + col);
+//            System.out.println("rows.size() ---->>> " + rows.size());
+//            System.out.println("cols.size() ---->>> " + table.select("td").size());
             int STOLB = col / (rows.size() - 1);
-            System.out.println("STOLB " + STOLB);
+//            System.out.println("STOLB " + STOLB);
             int k = 0;
             for (int i = 0; i < rows.size(); i++) {
                 Element row = rows.get(i);
-//                System.out.println("rows : " + rows.get(i).getAllElements().size());
                 Elements cols = table.select("td");
-//                Element col = cols.get(i);
-//                System.out.println("col : " + col.getAllElements().size());
-//                System.out.println("cols : " + cols.size());
+
                 if (k < table.select("td").size()) {
                     for (int j = k; j < k + STOLB; j++) {
                         int t = k;
@@ -118,16 +117,21 @@ public class RFW {
 //                System.out.println("text: "+l.text());
                 m.put(l.text(), l.attr("href"));
             }
-            for (Map.Entry<String, String> entry : m.entrySet()) {
+//            for (Map.Entry<String, String> entry : m.entrySet()) {
 //                System.out.println("entry.getKey() => " + entry.getKey());
 //                System.out.println("entry.getValue() => http://eticket.uzrailway.uz" + entry.getValue());
-            }
+//            }
 
         } catch (IOException e) {
             System.out.println("EXCEPTION ---->>> " + e);
         }
-
-        return findByCity(stFrom);
+        ModelVokzal mv = new ModelVokzal();
+        mv.setVokzal(znach);
+        mv.setSsylka(findByCity(stFrom));
+        ModelDAO md = new ModelDAO();
+        md.insertToVokzal();
+//        return findByCity(stFrom);
+        return "Данные успешно были внесены в БД!";
     }
 
     private static void findBySsZn(String ssilka, String znach) {

@@ -16,6 +16,7 @@ import java.util.logging.Logger;
  * @author Muzaffar
  */
 public class ConnDB {
+
     public Connection getConn() throws ClassNotFoundException, SQLException {
 
         Class.forName("com.mysql.jdbc.Driver");
@@ -24,7 +25,8 @@ public class ConnDB {
                 "jdbc:mysql://localhost:3306/bot", "test", "test");
         return conn;
     }
-    public void closeConn(Connection conn){
+
+    public void closeConn(Connection conn) {
         try {
             conn.close();
         } catch (SQLException ex) {

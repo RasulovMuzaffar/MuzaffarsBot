@@ -16,14 +16,16 @@ public class ModelVokzal {
     private int id;
     private String vokzal;
     private Timestamp curDate;
+    private String ssylka;
 
     public ModelVokzal() {
     }
 
-    public ModelVokzal(int id, String vokzal, Timestamp curDate) {
+    public ModelVokzal(int id, String vokzal, Timestamp curDate, String ssylka) {
         this.id = id;
         this.vokzal = vokzal;
         this.curDate = curDate;
+        this.ssylka = ssylka;
     }
 
     public int getId() {
@@ -50,9 +52,16 @@ public class ModelVokzal {
         this.curDate = curDate;
     }
 
-    @Override
-    public String toString() {
-        return "ModelVokzal{" + "id=" + id + ", vokzal=" + vokzal + ", curDate=" + curDate + '}';
+    public String getSsylka() {
+        return ssylka;
     }
 
+    public void setSsylka(String ssylka) {
+        this.ssylka = ssylka;
+    }
+
+    @Override
+    public String toString() {
+        return "ModelVokzal{" + "id=" + id + ", vokzal=" + vokzal + ", curDate=" + curDate + ", ssylka=" + ssylka + '}';
+    }
 }

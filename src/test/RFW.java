@@ -8,12 +8,15 @@ package test;
 import dao.ModelDAO;
 import model.ModelReys;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import model.ModelVokzal;
@@ -123,13 +126,21 @@ public class RFW {
 //            }
 
         } catch (IOException e) {
-            System.out.println("EXCEPTION ---->>> " + e);
+            System.out.println("IOException find ---->>> " + e);
         }
         ModelVokzal mv = new ModelVokzal();
         mv.setVokzal(znach);
         mv.setSsylka(findByCity(stFrom));
         ModelDAO md = new ModelDAO();
-        md.insertToVokzal();
+        try {
+            md.insertToVokzal();
+        } catch (ClassNotFoundException ex) {
+            System.out.println("ClassNotFoundException md.insertToVokzal() --> "+ex);
+            Logger.getLogger(RFW.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            System.out.println("SQLException md.insertToVokzal() --> "+ex);
+            Logger.getLogger(RFW.class.getName()).log(Level.SEVERE, null, ex);
+        }
 //        return findByCity(stFrom);
         return "Данные успешно были внесены в БД!";
     }

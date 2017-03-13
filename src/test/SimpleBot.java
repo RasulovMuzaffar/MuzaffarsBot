@@ -22,39 +22,39 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 public class SimpleBot extends TelegramLongPollingBot {
 
     public static void main(String[] args) {
-//        ApiContextInitializer.init();
-//        TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
-//        try {
-//            telegramBotsApi.registerBot(new SimpleBot());
-//        } catch (TelegramApiException e) {
-//            System.out.println("TelegramApiException ---> " + e);
-//            e.printStackTrace();
-//        }
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Введите команду!");
-
-//        System.out.println(">>>>>>> " + message.getText());
-        String stFrom;
-        String stTo;
-        String message = sc.nextLine();
-        String[] s = message.split(" ");
-        stFrom = s[1];
-        stTo = s[2];
-
-        if (message.equals("/help")) {
-//                sendMsg(message, "Пример команды /reys станция отправления станция назначения");
-            System.out.println("Пример команды /reys станция отправления станция назначения");
-        } else if (message.equals("/reys")) {
-//                sendMsg(message, "пример команды /reys Ташкент Москва");
-            System.out.println("пример команды /reys Ташкент Москва");
-        } else if (message.equals("/reys " + stFrom + " " + stTo)) {
-            RFW rfw = new RFW();
-            rfw.find(stFrom, stTo);
-//                sendMsg(message, rfw.find(stFrom, stTo));
-        } else {
-            System.out.println("Я не знаю что ответить на это");
-//                sendMsg(message, "Я не знаю что ответить на это");
+        ApiContextInitializer.init();
+        TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
+        try {
+            telegramBotsApi.registerBot(new SimpleBot());
+        } catch (TelegramApiException e) {
+            System.out.println("TelegramApiException ---> " + e);
+            e.printStackTrace();
         }
+//        Scanner sc = new Scanner(System.in);
+//        System.out.println("Введите команду!");
+//
+////        System.out.println(">>>>>>> " + message.getText());
+//        String stFrom;
+//        String stTo;
+//        String message = sc.nextLine();
+//        String[] s = message.split(" ");
+//        stFrom = s[1];
+//        stTo = s[2];
+//
+//        if (message.equals("/help")) {
+////                sendMsg(message, "Пример команды /reys станция отправления станция назначения");
+//            System.out.println("Пример команды /reys станция отправления станция назначения");
+//        } else if (message.equals("/reys")) {
+////                sendMsg(message, "пример команды /reys Ташкент Москва");
+//            System.out.println("пример команды /reys Ташкент Москва");
+//        } else if (message.equals("/reys " + stFrom + " " + stTo)) {
+//            RFW rfw = new RFW();
+//            rfw.find(stFrom, stTo);
+////                sendMsg(message, rfw.find(stFrom, stTo));
+//        } else {
+//            System.out.println("Я не знаю что ответить на это");
+////                sendMsg(message, "Я не знаю что ответить на это");
+//        }
 
     }
 

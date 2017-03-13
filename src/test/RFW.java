@@ -128,17 +128,18 @@ public class RFW {
         } catch (IOException e) {
             System.out.println("IOException find ---->>> " + e);
         }
-        ModelVokzal mv = new ModelVokzal();
-        mv.setVokzal(znach);
-        mv.setSsylka(findByCity(stFrom));
+//        ModelVokzal mv = new ModelVokzal();
+//        mv.setVokzal(stFrom);
+//        System.out.println("znach " + mv.getVokzal());
+//        mv.setSsylka(findByCity(stFrom));
         ModelDAO md = new ModelDAO();
         try {
-            md.insertToVokzal();
+            md.insertToVokzal(stFrom, findByCity(stFrom));
         } catch (ClassNotFoundException ex) {
-            System.out.println("ClassNotFoundException md.insertToVokzal() --> "+ex);
+            System.out.println("ClassNotFoundException md.insertToVokzal() --> " + ex);
             Logger.getLogger(RFW.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            System.out.println("SQLException md.insertToVokzal() --> "+ex);
+            System.out.println("SQLException md.insertToVokzal() --> " + ex);
             Logger.getLogger(RFW.class.getName()).log(Level.SEVERE, null, ex);
         }
 //        return findByCity(stFrom);
@@ -170,18 +171,7 @@ public class RFW {
     }
 
     private String findByCity(String s) {
-//        System.out.println(s + "-------------------" + allList.entrySet().iterator());
 
-        /*
-         Map<String, String> map = new HashMap<>();
-        for (Map.Entry<String, String> stringStringEntry : map.entrySet()) {
-            
-        }
-        
-        ---------------------
-        
-        Map<String, String> newMap = map.entrySet().stream().filter(e -> e.getValue().endsWith("a")).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-         */
         for (Iterator it = allList.entrySet().iterator(); it.hasNext();) {
 
             Map.Entry<String, String> entry = (Map.Entry<String, String>) it.next();

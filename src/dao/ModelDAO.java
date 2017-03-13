@@ -30,15 +30,6 @@ public class ModelDAO implements ModelInterface {
 
     public void insertToVokzal(String vokzal, String ssylka) throws ClassNotFoundException, SQLException {
 
-        Class.forName("com.mysql.jdbc.Driver");
-
-        Connection conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/bot", "test", "test");
-//        System.out.println("conn --->> "+conn.getMetaData().getDatabaseProductName());
-//        System.out.println("conn --->> "+conn.getMetaData().getDatabaseProductVersion());
-
-//        ModelVokzal mv = new ModelVokzal();
-//        System.out.println("mv.getVokzal() ---->> " + mv.getVokzal());
         ConnDB con = new ConnDB();
         try {
             conn = con.getConn();
@@ -47,8 +38,12 @@ public class ModelDAO implements ModelInterface {
             ps.setString(2, ssylka);
 
             ps.executeUpdate();
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(ModelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ClassNotFoundException ex ---->>> " + ex);
+        } catch (SQLException ex) {
+            System.out.println("SQLException ex ---->>> " + ex);
+            System.out.println(ex.getMessage());
         } finally {
             try {
                 ps.close();

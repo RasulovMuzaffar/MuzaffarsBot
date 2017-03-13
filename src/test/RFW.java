@@ -50,7 +50,6 @@ public class RFW {
         try {
             doc = Jsoup.connect("http://eticket.uzrailway.uz/timetable/timetable/2900000/today").get();
 
-//            System.out.println(doc.body().getElementsByClass("list-unstyled"));
             ssilka = doc.body().getElementsByClass("list-unstyled").toString();
             znach = doc.body().getElementsByClass("list-unstyled").text();
 
@@ -58,20 +57,16 @@ public class RFW {
 
             doc1 = Jsoup.connect(findByCity(stFrom)).get();
             c = doc1.body().getElementById("table_super").getElementsByTag("thead").outerHtml();
-//            System.out.println(c);
-//            System.out.println(
-//                    doc1.body().getElementById("table_super").getElementsByTag("tbody").get(0).getElementsByTag("td").text());
 
+            
             List<ModelReys> lm = new ArrayList<>();
             ModelReys model = new ModelReys();
             Element table = doc1.select("table.table").get(0);
             Elements rows = table.select("tr");
             int col = rows.select("td").size();
-//            System.out.println("col : " + col);
-//            System.out.println("rows.size() ---->>> " + rows.size());
-//            System.out.println("cols.size() ---->>> " + table.select("td").size());
+
             int STOLB = col / (rows.size() - 1);
-//            System.out.println("STOLB " + STOLB);
+
             int k = 0;
             for (int i = 0; i < rows.size(); i++) {
                 Element row = rows.get(i);
@@ -98,21 +93,12 @@ public class RFW {
                             model.setDniK(cols.get(j).text());
                         }
                     }
-
                     System.out.println("model " + model.toString());
                 }
                 lm.add(model);
                 k += STOLB;
             }
-//            System.out.println("--------------------------------------------------");
-//            lm.stream().forEach((l) -> {
-//                System.out.println("" + l.toString());
-//            });
-
-//            Elements e = doc1.select("table.table").select("td");
-//            for (Element element : e) {
-//                System.out.println("qqqqqqqqqqqqqqqqq   " + element.getElementsByTag("td").text());
-//            }
+            
             Elements link = doc1.body().getElementsByClass("list-unstyled").select("a[href]");
             Map<String, String> m = new HashMap<>();
             for (Element l : link) {
@@ -128,10 +114,7 @@ public class RFW {
         } catch (IOException e) {
             System.out.println("IOException find ---->>> " + e);
         }
-//        ModelVokzal mv = new ModelVokzal();
-//        mv.setVokzal(stFrom);
-//        System.out.println("znach " + mv.getVokzal());
-//        mv.setSsylka(findByCity(stFrom));
+
         ModelDAO md = new ModelDAO();
         try {
             md.insertToVokzal(stFrom, findByCity(stFrom));
@@ -142,7 +125,6 @@ public class RFW {
             System.out.println("SQLException md.insertToVokzal() --> " + ex);
             Logger.getLogger(RFW.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        return findByCity(stFrom);
         return "Данные успешно были внесены в БД!";
     }
 
@@ -175,7 +157,7 @@ public class RFW {
         for (Iterator it = allList.entrySet().iterator(); it.hasNext();) {
 
             Map.Entry<String, String> entry = (Map.Entry<String, String>) it.next();
-//            System.out.println("SELECTED CITY--->>> " + entry.getValue());
+
             if (entry.getValue().equals(s)) {
                 System.out.println("SELECTED CITY--->>> " + entry.getValue());
                 s = entry.getKey();
